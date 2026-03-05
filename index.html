@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shawn Wall — Software Architect &amp; Engineering Leader</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --amber:    #ffcc00;
+      --amber-dk: #e6b800;
+      --dark:     #555555;
+      --body-bg:  #666666;
+      --card-bg:  #5a5a5a;
+      --text:     #eeeeee;
+      --text-dim: #cccccc;
+      --medium:   #888888;
+      --link:     #ffff66;
+      --link-hov: #ffdd55;
+      --white:    #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Calibri, "HelveticaNeue-Light", "Helvetica Neue Light",
+        "Helvetica Neue", Helvetica, sans-serif;
+      background: var(--body-bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a, a:visited, a:active {
+      text-decoration: none;
+      color: var(--link);
+    }
+    a:hover { color: var(--link-hov); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+      height: 60px;
+      background: var(--dark);
+      border-bottom: 4px solid var(--amber);
+    }
+
+    .nav-brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--amber);
+      letter-spacing: 0.04em;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.875rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--link); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 6rem max(2rem, calc((100% - 960px) / 2)) 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+
+    .hero-eyebrow {
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 2px #444;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--text-dim);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .badge {
+      background: rgba(255,204,0,0.12);
+      border: 1px solid rgba(255,204,0,0.4);
+      color: var(--amber);
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    .btn {
+      padding: 0.75rem 2rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: 2px solid transparent;
+      font-family: inherit;
+    }
+
+    .btn-primary,
+    .btn-primary:visited {
+      background: var(--amber);
+      color: var(--dark);
+      border-color: var(--amber);
+    }
+    .btn-primary:hover { background: var(--amber-dk); color: var(--dark); border-color: var(--amber-dk); }
+
+    .btn-outline,
+    .btn-outline:visited {
+      background: transparent;
+      color: var(--amber);
+      border-color: var(--amber);
+    }
+    .btn-outline:hover { background: rgba(255,204,0,0.12); color: var(--amber); }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 5rem max(2rem, calc((100% - 960px) / 2));
+    }
+
+    .section-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 2px #aaa;
+    }
+
+    .divider {
+      width: 48px; height: 3px;
+      background: var(--amber);
+      border-radius: 2px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text p { color: var(--text-dim); margin-bottom: 1rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,204,0,0.3);
+      border-radius: 10px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--dark); }
+
+    /* ── EXPERTISE ── */
+    #expertise { background: var(--body-bg); }
+
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .expertise-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,204,0,0.2);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .expertise-card:hover {
+      border-color: var(--amber);
+      transform: translateY(-3px);
+    }
+
+    .card-icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .expertise-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .expertise-card p {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ── EXPERIENCE ── */
+    .timeline { position: relative; padding-left: 2rem; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--amber), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.375rem; top: 8px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--amber);
+      border: 2px solid var(--body-bg);
+      box-shadow: 0 0 0 3px rgba(255,204,0,0.3);
+    }
+
+    .timeline-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .timeline-company {
+      font-size: 0.875rem;
+      color: var(--amber);
+    }
+
+    .timeline-date {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-left: auto;
+    }
+
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--dark); }
+
+    .skills-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-group h3 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-group ul { list-style: none; }
+
+    .skill-group li {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      padding: 0.25rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .skill-group li::before {
+      content: '›  ';
+      color: var(--amber);
+    }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+
+    #contact p {
+      color: var(--text-dim);
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: right;
+      padding: 0 2rem;
+      background: var(--dark);
+      color: var(--text-dim);
+      border-top: 4px solid var(--amber);
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      line-height: 3em;
+      margin: 0;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 660px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .timeline-date { margin-left: 0; }
+      nav ul { gap: 1rem; }
+      footer { text-align: center; padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">SW</span>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-eyebrow">Software Architect &amp; Engineering Leader</p>
+  <h1>Shawn Wall</h1>
+  <p class="hero-sub">
+    25+ years designing scalable systems, leading high-performance engineering teams, and turning complex problems into elegant solutions.
+  </p>
+  <div class="badge-row">
+    <span class="badge">Software Architecture</span>
+    <span class="badge">Engineering Management</span>
+    <span class="badge">Cloud &amp; Distributed Systems</span>
+    <span class="badge">Team Leadership</span>
+  </div>
+  <div class="cta-row">
+<a href="#contact" class="btn btn-primary">Get in Touch</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">Background</p>
+  <h2>About Me</h2>
+  <div class="divider"></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a software architect and engineering manager with over 25 years of hands-on experience building enterprise-grade systems and leading the teams that power them. My career spans the full arc of modern software — from the early days of the web through cloud-native, microservices, and AI-augmented development.
+      </p>
+      <p>
+        I bring a rare combination of deep technical depth and organizational leadership, having served as both an individual contributor architect and an executive-level engineering manager. I'm equally comfortable whiteboarding system designs, reviewing pull requests, and presenting roadmaps to stakeholders.
+      </p>
+      <p>
+        My focus is on building durable systems and growing the engineers who maintain them — cultures where quality, pragmatism, and continuous learning thrive.
+      </p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-number">25+</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100s</div>
+        <div class="stat-label">Engineers Mentored</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">Systems Designed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">0</div>
+        <div class="stat-label">Boring Problems</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <p class="section-label">What I Do</p>
+  <h2>Areas of Expertise</h2>
+  <div class="divider"></div>
+  <div class="expertise-grid">
+    <div class="expertise-card">
+      <div class="card-icon">🏛️</div>
+      <h3>Software Architecture</h3>
+      <p>Designing resilient, scalable systems — from monolith to microservices, event-driven, and serverless patterns tailored to real business constraints.</p>
+    </div>
+    <div class="expertise-card">
+      <div class="card-icon">👥</div>
+      <h3>Engineering Leadership</h3>
+      <p>Building and scaling high-performing engineering teams. Hiring, mentoring, org design, and creating engineering cultures that ship great software.</p>
+    </div>
+    <div class="expertise-card">
+      <div class="card-icon">☁️</div>
+      <h3>Cloud &amp; Infrastructure</h3>
+      <p>Cloud-native architecture across AWS, Azure, and GCP. Infrastructure as code, CI/CD pipelines, containerization, and operational excellence.</p>
+    </div>
+    <div class="expertise-card">
+      <div class="card-icon">⚙️</div>
+      <h3>API &amp; Platform Design</h3>
+      <p>Crafting APIs and developer platforms that stand the test of time — RESTful and event-based integrations with clean contracts.</p>
+    </div>
+    <div class="expertise-card">
+      <div class="card-icon">📐</div>
+      <h3>Technical Strategy</h3>
+      <p>Translating business goals into technical roadmaps. Managing technical debt, modernization initiatives, and make-vs-buy decisions.</p>
+    </div>
+    <div class="expertise-card">
+      <div class="card-icon">🔒</div>
+      <h3>Security &amp; Reliability</h3>
+      <p>Embedding security and SRE principles from day one — threat modeling, SLOs, incident management, and observability-first design.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Toolbox</p>
+  <h2>Skills</h2>
+  <div class="divider"></div>
+  <div class="skills-columns">
+    <div class="skill-group">
+      <h3>Languages</h3>
+      <ul>
+        <li>Python</li>
+        <li>TypeScript / JavaScript</li>
+        <li>Java / Kotlin</li>
+        <li>SQL</li>
+        <li>Swift / Objective-C</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Architecture</h3>
+      <ul>
+        <li>Microservices</li>
+        <li>Event-Driven Systems</li>
+        <li>Domain-Driven Design</li>
+        <li>REST APIs</li>
+        <li>CQRS / Event Sourcing</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Cloud &amp; DevOps</h3>
+      <ul>
+        <li>AWS</li>
+        <li>Docker</li>
+        <li>Terraform</li>
+        <li>CI/CD Pipelines</li>
+        <li>Observability &amp; SRE</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Data &amp; Messaging</h3>
+      <ul>
+        <li>PostgreSQL / MySQL</li>
+        <li>DynamoDB</li>
+        <li>Kafka / RabbitMQ</li>
+        <li>Redis / Elasticsearch</li>
+        <li>Data Pipelines &amp; ETL</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Leadership</h3>
+      <ul>
+        <li>Org Design &amp; Hiring</li>
+        <li>Agile / Scrum / Kanban</li>
+        <li>Technical Roadmapping</li>
+        <li>Stakeholder Management</li>
+        <li>Engineering Culture</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Design</h3>
+      <ul>
+        <li>Wireframing</li>
+        <li>Prototyping</li>
+        <li>User Research</li>
+        <li>Interaction Design</li>
+        <li>Visual Design</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Let's Connect</p>
+  <h2>Get in Touch</h2>
+  <div class="divider" style="margin: 0 auto 2.5rem;"></div>
+  <p>
+    Whether you're looking to collaborate, discuss architecture challenges, or explore opportunities — I'd love to hear from you.
+  </p>
+  <div class="contact-links">
+    <a href="https://github.com/shawnwall" class="btn btn-primary" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/shawnkwall" class="btn btn-primary" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; <span id="year"></span> Shawn Wall. Built with Claude.</p>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</footer>
+
+</body>
+</html>
