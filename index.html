@@ -342,6 +342,28 @@
       margin: 0;
     }
 
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--amber);
+      color: var(--dark);
+      padding: 0.5rem 1rem;
+      border-radius: 0 0 6px 6px;
+      font-weight: 700;
+      z-index: 200;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── FOCUS ── */
+    :focus-visible {
+      outline: 3px solid var(--amber);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 660px) {
       .about-grid { grid-template-columns: 1fr; }
@@ -349,11 +371,19 @@
       nav ul { gap: 1rem; }
       footer { text-align: center; padding: 0 1rem; }
     }
+
+    /* ── MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
   </style>
 </head>
 <body>
 
-<nav>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<nav aria-label="Primary">
   <span class="nav-brand">SW</span>
   <ul>
     <li><a href="#about">About</a></li>
@@ -362,6 +392,8 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
+
+<main id="main-content">
 
 <!-- HERO -->
 <section id="hero">
@@ -385,7 +417,7 @@
 <section id="about">
   <p class="section-label">Background</p>
   <h2>About Me</h2>
-  <div class="divider"></div>
+  <div class="divider" aria-hidden="true"></div>
   <div class="about-grid">
     <div class="about-text">
       <p>
@@ -423,35 +455,35 @@
 <section id="expertise">
   <p class="section-label">What I Do</p>
   <h2>Areas of Expertise</h2>
-  <div class="divider"></div>
+  <div class="divider" aria-hidden="true"></div>
   <div class="expertise-grid">
     <div class="expertise-card">
-      <div class="card-icon">🏛️</div>
+      <div class="card-icon" aria-hidden="true">🏛️</div>
       <h3>Software Architecture</h3>
       <p>Designing resilient, scalable systems — from monolith to microservices, event-driven, and serverless patterns tailored to real business constraints.</p>
     </div>
     <div class="expertise-card">
-      <div class="card-icon">👥</div>
+      <div class="card-icon" aria-hidden="true">👥</div>
       <h3>Engineering Leadership</h3>
       <p>Building and scaling high-performing engineering teams. Hiring, mentoring, org design, and creating engineering cultures that ship great software.</p>
     </div>
     <div class="expertise-card">
-      <div class="card-icon">☁️</div>
+      <div class="card-icon" aria-hidden="true">☁️</div>
       <h3>Cloud &amp; Infrastructure</h3>
       <p>Cloud-native architecture across AWS, Azure, and GCP. Infrastructure as code, CI/CD pipelines, containerization, and operational excellence.</p>
     </div>
     <div class="expertise-card">
-      <div class="card-icon">⚙️</div>
+      <div class="card-icon" aria-hidden="true">⚙️</div>
       <h3>API &amp; Platform Design</h3>
       <p>Crafting APIs and developer platforms that stand the test of time — RESTful and event-based integrations with clean contracts.</p>
     </div>
     <div class="expertise-card">
-      <div class="card-icon">📐</div>
+      <div class="card-icon" aria-hidden="true">📐</div>
       <h3>Technical Strategy</h3>
       <p>Translating business goals into technical roadmaps. Managing technical debt, modernization initiatives, and make-vs-buy decisions.</p>
     </div>
     <div class="expertise-card">
-      <div class="card-icon">🔒</div>
+      <div class="card-icon" aria-hidden="true">🔒</div>
       <h3>Security &amp; Reliability</h3>
       <p>Embedding security and SRE principles from day one — threat modeling, SLOs, incident management, and observability-first design.</p>
     </div>
@@ -463,7 +495,7 @@
 <section id="skills">
   <p class="section-label">Toolbox</p>
   <h2>Skills</h2>
-  <div class="divider"></div>
+  <div class="divider" aria-hidden="true"></div>
   <div class="skills-columns">
     <div class="skill-group">
       <h3>Languages</h3>
@@ -532,15 +564,17 @@
 <section id="contact">
   <p class="section-label">Let's Connect</p>
   <h2>Get in Touch</h2>
-  <div class="divider" style="margin: 0 auto 2.5rem;"></div>
+  <div class="divider" aria-hidden="true" style="margin: 0 auto 2.5rem;"></div>
   <p>
     Whether you're looking to collaborate, discuss architecture challenges, or explore opportunities — I'd love to hear from you.
   </p>
   <div class="contact-links">
-    <a href="https://github.com/shawnwall" class="btn btn-primary" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://linkedin.com/in/shawnkwall" class="btn btn-primary" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/shawnwall" class="btn btn-primary" target="_blank" rel="noopener" aria-label="GitHub (opens in new tab)">GitHub</a>
+    <a href="https://linkedin.com/in/shawnkwall" class="btn btn-primary" target="_blank" rel="noopener" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
   </div>
 </section>
+
+</main>
 
 <footer>
   <p>&copy; <span id="year"></span> Shawn Wall. Built with Claude.</p>
